@@ -21,11 +21,16 @@ public class MenuManager : MonoBehaviour {
 
     public void CreditsClicked()
     {
-
+        Application.LoadLevel("Credits");
     }
 
     public void ExitClicked()
     {
         Application.Quit();
+    }
+
+    public void BackClicked()
+    {
+        Application.LoadLevel("MainMenu");
     }
 }
