@@ -26,7 +26,7 @@ public struct Disease{
 		pHValue = 0.02f;
 		HaemValue = 0.02f;
 		SpecValue = 0.02f;
-		KetoValue = 0.02f;
+		KetoValue = 0.0f;
 		BiliValue = false;
 		GlucValue = 0.02f;
 	}
@@ -34,12 +34,12 @@ public struct Disease{
 	public void random(){
         LeukValue = Random.Range(0,2) == 0 ? false : true;
         NitrValue = Random.Range(0, 2) == 0 ? false : true;
-		UrobValue = Random.Range(0.02f, 1.0f);
-		ProtValue = Random.Range(0.02f, 1.0f);
-		pHValue = Random.Range(0.02f, 1.0f);
-		HaemValue = Random.Range(0.02f, 1.0f);
-		SpecValue = Random.Range(0.02f, 1.0f);
-		KetoValue = Random.Range(0.02f, 1.0f);
+		UrobValue = Random.Range(0.5f, 1.0f);
+		ProtValue = Random.Range(0.0f, 0.57f);
+		pHValue = Random.Range(0.375f, .67f);
+		HaemValue = Random.Range(0.0f, 0.3f);
+		SpecValue = Random.Range(0.5f, 1.0f);
+		KetoValue = Random.Range(0.0f, 1.0f);
         BiliValue = Random.Range(0, 2) == 0 ? false : true;
 		GlucValue = Random.Range(0.02f, 1.0f);
 	}
@@ -60,11 +60,12 @@ public struct Disease{
 	public void Diabetes(){
         Name = "Diabetes";
 		Normalize();
-		KetoValue = 1.0f;
+		KetoValue = 0.7f;
 	}
 	public void Proteinuria(){
         Name = "Proteinuria";
 		Normalize();
+		KetoValue = 0.0f;
 		ProtValue = 1.0f;
 	}
 
