@@ -19,6 +19,8 @@ public struct Disease{
 	public float GlucValue;
 
 	public void init(){
+        Name = "";
+
 		LeukValue = false;
 		NitrValue = false;
 		UrobValue = 0.02f;
@@ -122,13 +124,30 @@ public class Bars : MonoBehaviour {
         
 		if(theDisease == 0){
 			currentDisease.Diabetes();
-			setScrollbar(currentDisease);
 		}
 		else if(theDisease == 1){
 			currentDisease.Proteinuria();
-			setScrollbar(currentDisease);
 		}
 
         return currentDisease;
 	}
+
+    public void SetDisease(Disease newDisease)
+    {
+        switch(newDisease.Name)
+        {
+            case "Diabetes":
+                currentDisease.Diabetes();
+                break;
+            case "Proteinuria":
+                currentDisease.Proteinuria();
+                break;
+        }
+    }
+
+    public void SetBars()
+    {
+        print("Name: " + currentDisease.Name);
+        setScrollbar(currentDisease);
+    }
 }

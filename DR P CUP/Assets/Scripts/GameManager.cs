@@ -17,13 +17,18 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	/*void Start () {
         bars = GetComponent<Bars>();
+
         enterVisual();
+        currentExam = ExamMode.Visual;
         currentDisease = bars.newDisease();
 	}*/
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if (Input.GetKeyDown(KeyCode.R))
+        {
+            SwitchExamMode();
+        }
 	}
 
     public void SwitchExamMode()
@@ -59,6 +64,7 @@ public class GameManager : MonoBehaviour {
     private void enterChemical()
     {
         ChemicalExam.SetActive(true);
+        bars.SetDisease(currentDisease);
     }
 
     private void exitChemical()

@@ -37,7 +37,7 @@ public class CupManager : MonoBehaviour {
 		if(PeeStick.transform.position == goal){
 			if(goal == startPos){
 				moving = false;
-				BarsCode.newDisease();
+				BarsCode.SetBars();
 			}
 			else{
 				goal = startPos;
