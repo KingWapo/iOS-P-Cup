@@ -84,6 +84,8 @@ public enum Chemicals { Leukocytes = 0,
 
 public class Bars : MonoBehaviour {
 
+    public static int MAXDISEASES = 2;
+
 	public List<Scrollbar> ChemBars;
 	
 	private Disease currentDisease;
@@ -102,8 +104,6 @@ public class Bars : MonoBehaviour {
 	}
 
 	void setScrollbar(Disease d){
-		//ChemBars[(int)Chemicals.Leukocytes].size = d.LeukValue;
-        //ChemBars[(int)Chemicals.Nitrite].size = d.NitrValue;
         ChemBars[(int)Chemicals.Leukocytes].transform.GetChild(1).gameObject.GetComponent<Text>().text = d.LeukValue ? "+" : "-";
         ChemBars[(int)Chemicals.Nitrite].transform.GetChild(1).gameObject.GetComponent<Text>().text = d.NitrValue ? "+" : "-";
 		ChemBars[(int)Chemicals.Urobilinogen].size = d.UrobValue;
@@ -112,15 +112,13 @@ public class Bars : MonoBehaviour {
 		ChemBars[(int)Chemicals.Haemoglobin].size = d.HaemValue;
 		ChemBars[(int)Chemicals.SpecGrav].size = d.SpecValue;
 		ChemBars[(int)Chemicals.Ketone].size = d.KetoValue;
-        //ChemBars[(int)Chemicals.Bilirubin].size = d.BiliValue;
         ChemBars[(int)Chemicals.Bilirubin].transform.GetChild(1).gameObject.GetComponent<Text>().text = d.BiliValue ? "+" : "-";
 		ChemBars[(int)Chemicals.Glucose].size = d.GlucValue;
 	}
 
 	public Disease newDisease(){
-		int theDisease;
-		theDisease = Random.Range(0, 2);
-
+        int theDisease = Random.Range(0, MAXDISEASES);
+        
 		if(theDisease == 0){
 			currentDisease.Diabetes();
 			setScrollbar(currentDisease);
@@ -132,19 +130,4 @@ public class Bars : MonoBehaviour {
 
         return currentDisease;
 	}
-
-	/*void updateChem(){
-		ChemBars.size = ChemValue / 100f;
-	}*/
-
-	/*public void setValue(float value){
-		ChemValue += value;
-		ChemBars.size = ChemValue / 100f;
-	}*/
-
-	/*void (){
-		if(Input.GetKeyDown(KeyCode.D)){
-		   setValue(20f);
-		}
-	}*/
 }
