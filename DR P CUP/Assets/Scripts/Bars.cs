@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public struct Disease{
+
+    public string Name;
 	
 	public bool LeukValue;
 	public bool NitrValue;
@@ -56,10 +58,12 @@ public struct Disease{
     }
 
 	public void Diabetes(){
+        Name = "Diabetes";
 		Normalize();
 		KetoValue = 1.0f;
 	}
 	public void Proteinuria(){
+        Name = "Proteinuria";
 		Normalize();
 		ProtValue = 1.0f;
 	}
@@ -113,7 +117,7 @@ public class Bars : MonoBehaviour {
 		ChemBars[(int)Chemicals.Glucose].size = d.GlucValue;
 	}
 
-	public void newDisease(){
+	public Disease newDisease(){
 		int theDisease;
 		theDisease = Random.Range(0, 2);
 
@@ -125,6 +129,8 @@ public class Bars : MonoBehaviour {
 			currentDisease.Proteinuria();
 			setScrollbar(currentDisease);
 		}
+
+        return currentDisease;
 	}
 
 	/*void updateChem(){
