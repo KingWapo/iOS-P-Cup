@@ -15,11 +15,11 @@ public class GameManager : MonoBehaviour {
     private Bars bars;
 
 	// Use this for initialization
-	void Start () {
+	/*void Start () {
         bars = GetComponent<Bars>();
         enterVisual();
         currentDisease = bars.newDisease();
-	}
+	}*/
 	
 	// Update is called once per frame
 	void Update () {
