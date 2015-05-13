@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public enum ExamMode { Visual, Chemical, Microbial }
+public enum ExamMode { Setup, Visual, Chemical, Microbial }
 
 public class GameManager : MonoBehaviour {
 
+    public GameObject Setup;
     public GameObject VisualExam;
     public GameObject ChemicalExam;
     public GameObject MicrobialExam;
+
+    public Text ExamText;
 
     private ExamMode currentExam;
     private Disease currentDisease;
@@ -18,9 +22,9 @@ public class GameManager : MonoBehaviour {
 	void Start () {
         bars = GetComponent<Bars>();
 
-        enterVisual();
-        currentExam = ExamMode.Visual;
+        currentExam = ExamMode.Setup;
         currentDisease = bars.newDisease();
+        enterSetup();
 	}
 	
 	// Update is called once per frame
@@ -31,10 +35,27 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+    public void SelectAnswer(GameObject answer)
+    {
+        print(currentDisease.Name + " == " + answer.name);
+        if (currentDisease.Name == answer.name)
+        {
+            print("correct");
+        }
+        else
+        {
+            print("incorrect");
+        }
+    }
+
     public void SwitchExamMode()
     {
         switch(currentExam)
         {
+            case ExamMode.Setup:
+                exitSetup();
+                enterVisual();
+                break;
             case ExamMode.Visual:
                 exitVisual();
                 enterChemical();
@@ -51,9 +72,22 @@ public class GameManager : MonoBehaviour {
         currentExam = (ExamMode)((int)currentExam + 1);
     }
 
+    private void enterSetup()
+    {
+        Setup.SetActive(true);
+        ExamText.text = "Below is the patient information, your job is to diagnose their issue to the best of your ability.";
+        SetInfo();
+    }
+
+    private void exitSetup()
+    {
+        Setup.SetActive(false);
+    }
+
     private void enterVisual()
     {
         VisualExam.SetActive(true);
+        ExamText.text = "Analyze the coloring of the urine and see if you can determine the patient's issue or if further analyzing is required.";
     }
 
     private void exitVisual()
@@ -64,6 +98,7 @@ public class GameManager : MonoBehaviour {
     private void enterChemical()
     {
         ChemicalExam.SetActive(true);
+        ExamText.text = "Test the chemcial composition by clicking on the cup to insert the urine test strip.";
         bars.SetDisease(currentDisease);
     }
 
@@ -80,6 +115,16 @@ public class GameManager : MonoBehaviour {
     private void exitMicrobial()
     {
         MicrobialExam.SetActive(false);
+    }
+
+    private void SetInfo()
+    {
+        string patient = "Mr. Goobs";
+        Text patientText = Setup.transform.GetChild(0).gameObject.GetComponent<Text>();
+        patientText.text = "Patient: " + patient + "\n" +
+                           "Date: " + System.DateTime.Now.ToShortDateString() + "\n" +
+                           "Medication: None" + "\n" +
+                           "Symptoms: " + currentDisease.Symptoms;
     }
 
 }
