@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
 
     private Bars bars;
 
+    // Microbial
+    private bool zooming;
+
 	// Use this for initialization
 	void Start () {
         bars = GetComponent<Bars>();
@@ -32,6 +35,16 @@ public class GameManager : MonoBehaviour {
 	    if (Input.GetKeyDown(KeyCode.R))
         {
             SwitchExamMode();
+        }
+
+        if (zooming)
+        {
+            MicrobialExam.transform.FindChild("UrineSlide").localScale += new Vector3(15f, 15f, 15f); 
+            if (MicrobialExam.transform.FindChild("UrineSlide").localScale.x >= 1200)
+            {
+                zooming = false;
+                print("Done");
+            }
         }
 	}
 
@@ -70,6 +83,12 @@ public class GameManager : MonoBehaviour {
         }
 
         currentExam = (ExamMode)((int)currentExam + 1);
+    }
+
+    public void ZoomIn()
+    {
+        zooming = true;
+        MicrobialExam.transform.FindChild("ZoomButton").gameObject.SetActive(false);
     }
 
     private void enterSetup()
