@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.R))
         {
-            SwitchExamMode();
+            Reset();
         }
 
         if (zooming)
@@ -327,6 +327,30 @@ public class GameManager : MonoBehaviour {
         }
 
         return list;
+    }
+
+    public void Reset()
+    {
+        GameObject[] micros = GameObject.FindGameObjectsWithTag("Molecules");
+        for (int i = 0; i < micros.Length; i++)
+        {
+            Destroy(micros[i]);
+        }
+
+        currentDisease.init();
+        bars.SetDisease(currentDisease);
+        bars.SetBars();
+        currentDisease = bars.newDisease();
+        GameObject.FindGameObjectWithTag("MicroText").GetComponent<Text>().text = "";
+        enterSetup();
+        AskFood.SetActive(false);
+        AnswerFood.SetActive(false);
+        AnswerDrug.SetActive(false);
+        zooming = false;
+        MicrobialExam.transform.FindChild("UrineSlide").localScale = new Vector3(20, 1, 5);
+        MicrobialExam.transform.FindChild("ZoomButton").gameObject.SetActive(true);
+        AfterZoom.SetActive(false);
+        currentExam = ExamMode.Setup;
     }
 
 }
