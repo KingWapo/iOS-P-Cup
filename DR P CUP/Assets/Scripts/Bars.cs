@@ -467,6 +467,7 @@ public struct Disease{
         color = Random.Range(0, 2) == 0 ? UrineColor.Yellow : UrineColor.Red;
 
         RedBloodCells = Random.Range(3, 10);
+        Bacteria = Random.Range(1, 5);
     }
 
     public void Gout()
@@ -494,13 +495,20 @@ public struct Disease{
         else
             color = UrineColor.Brown;
 
+        if (color == UrineColor.Red || color == UrineColor.Brown)
+        {
+            RedBloodCells = Random.Range(3, 10);
+        }
+        else
+        {
+            RedBloodCells = Random.Range(1, 4);
+        }
+
         Crystals = Random.Range(1, 10);
     }
 }
 
 public class Bars : MonoBehaviour {
-
-    public static int MAXDISEASES = 2;
 
 	public List<Scrollbar> ChemBars;
 	
@@ -533,10 +541,7 @@ public class Bars : MonoBehaviour {
 	}
 
 	public Disease newDisease(){
-        int theDisease = Random.Range(0, MAXDISEASES);
-
         currentDisease.SetDisease((DiseaseType)Random.Range(0, (int)DiseaseType.MAX));
-
         return currentDisease;
 	}
 

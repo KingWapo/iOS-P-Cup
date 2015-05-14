@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject ChemicalExam;
     public GameObject MicrobialExam;
+    public GameObject AfterZoom;
 
     public Text ExamText;
 
@@ -62,7 +63,8 @@ public class GameManager : MonoBehaviour {
             if (MicrobialExam.transform.FindChild("UrineSlide").localScale.x >= 1200)
             {
                 zooming = false;
-                print("Done");
+                GetComponent<SpawnMicros>().Spawn(currentDisease);
+                AfterZoom.SetActive(true);
             }
         }
 	}
