@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour {
     private void enterMicrobial()
     {
         MicrobialExam.SetActive(true);
-        ExamText.text = "Analyze the urine through a microscope to determine the existing microorganisms within.";
+        ExamText.text = "Analyze the urine through a microscope to determine the existing microorganisms within. Click on a microorganism to find out more info on it.";
     }
 
     private void exitMicrobial()
