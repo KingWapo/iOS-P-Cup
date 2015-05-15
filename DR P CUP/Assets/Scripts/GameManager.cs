@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
     public GameObject MicrobialExam;
     public GameObject AfterZoom;
 
+    public GameObject FinalResults;
+
     public Text ExamText;
 
     private ExamMode currentExam;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour {
     // Microbial
     private bool zooming;
 
+    private string currentPatient;
     private string currentSymptoms;
 
 	// Use this for initialization
@@ -104,38 +107,79 @@ public class GameManager : MonoBehaviour {
 
     public void SelectFoodAnswer(GameObject button)
     {
+        GameObject[] micros = GameObject.FindGameObjectsWithTag("Molecules");
+        for (int i = 0; i < micros.Length; i++)
+        {
+            Destroy(micros[i]);
+        }
+
+        Setup.SetActive(false);
+        VisualExam.SetActive(false);
+        ChemicalExam.SetActive(false);
+        MicrobialExam.SetActive(false);
+        FinalResults.SetActive(true);
+
+        Text finalResults = FinalResults.transform.GetChild(0).gameObject.GetComponent<Text>();
+
         if (currentDisease.UsedFood == button.name)
         {
-            print("correct");
+            finalResults.text = "You have correctly identified " + currentPatient + "'s issues.";
         }
         else
         {
-            print("incorrect");
+            finalResults.text = "You have incorrectly identified " + currentPatient + "'s issues.";
         }
     }
 
     public void SelectDrugAnswer(GameObject button)
     {
+        GameObject[] micros = GameObject.FindGameObjectsWithTag("Molecules");
+        for (int i = 0; i < micros.Length; i++)
+        {
+            Destroy(micros[i]);
+        }
+
+        Setup.SetActive(false);
+        VisualExam.SetActive(false);
+        ChemicalExam.SetActive(false);
+        MicrobialExam.SetActive(false);
+        FinalResults.SetActive(true);
+
+        Text finalResults = FinalResults.transform.GetChild(0).gameObject.GetComponent<Text>();
+
         if (currentDisease.UsedMed == button.name)
         {
-            print("correct");
+            finalResults.text = "You have correctly identified " + currentPatient + "'s issues.";
         }
         else
         {
-            print("incorrect");
+            finalResults.text = "You have incorrectly identified " + currentPatient + "'s isseus.";
         }
     }
 
     public void SelectAnswer(GameObject answer)
     {
-        print(currentDisease.Name + " == " + answer.name);
+        GameObject[] micros = GameObject.FindGameObjectsWithTag("Molecules");
+        for (int i = 0; i < micros.Length; i++)
+        {
+            Destroy(micros[i]);
+        }
+
+        Setup.SetActive(false);
+        VisualExam.SetActive(false);
+        ChemicalExam.SetActive(false);
+        MicrobialExam.SetActive(false);
+        FinalResults.SetActive(true);
+
+        Text finalResults = FinalResults.transform.GetChild(0).gameObject.GetComponent<Text>();
+
         if (currentDisease.Name == answer.name)
         {
-            print("correct");
+            finalResults.text = "You have correctly identified " + currentPatient + "'s issues.";
         }
         else
         {
-            print("incorrect");
+            finalResults.text = "You have incorrectly identified " + currentPatient + "'s isseus.";
         }
     }
 
@@ -175,6 +219,7 @@ public class GameManager : MonoBehaviour {
         VisualExam.SetActive(false);
         ChemicalExam.SetActive(false);
         MicrobialExam.SetActive(false);
+        FinalResults.SetActive(false);
         ExamText.text = "Below is the patient information, your job is to diagnose their issue to the best of your ability.";
         SetInfo();
         for (int i = 0; i < Urines.Count; i++)
@@ -266,9 +311,9 @@ public class GameManager : MonoBehaviour {
 
     private void SetInfo()
     {
-        string patient = "Mr. Goobs";
+        currentPatient = "Mr. Goobs";
         Text patientText = Setup.transform.GetChild(0).gameObject.GetComponent<Text>();
-        patientText.text = "Patient: " + patient + "\n" +
+        patientText.text = "Patient: " + currentPatient + "\n" +
                            "Date: " + System.DateTime.Now.ToShortDateString() + "\n" +
                            "Medication: " + currentDisease.UsedMed + "\n" +
                            "Symptoms: ";
@@ -331,6 +376,9 @@ public class GameManager : MonoBehaviour {
 
     public void Reset()
     {
+        GameObject txt = GameObject.FindGameObjectWithTag("MicroText");
+        if (txt)
+            txt.GetComponent<Text>().text = "";
         GameObject[] micros = GameObject.FindGameObjectsWithTag("Molecules");
         for (int i = 0; i < micros.Length; i++)
         {
@@ -341,7 +389,6 @@ public class GameManager : MonoBehaviour {
         bars.SetDisease(currentDisease);
         bars.SetBars();
         currentDisease = bars.newDisease();
-        GameObject.FindGameObjectWithTag("MicroText").GetComponent<Text>().text = "";
         enterSetup();
         AskFood.SetActive(false);
         AnswerFood.SetActive(false);
