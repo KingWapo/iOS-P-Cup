@@ -213,6 +213,11 @@ public class GameManager : MonoBehaviour {
         MicrobialExam.transform.FindChild("ZoomButton").gameObject.SetActive(false);
     }
 
+    public void Back()
+    {
+        Application.LoadLevel("MainMenu");
+    }
+
     private void enterSetup()
     {
         Setup.SetActive(true);
