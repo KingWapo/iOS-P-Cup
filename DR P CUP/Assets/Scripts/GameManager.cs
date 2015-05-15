@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            finalResults.text = "You have incorrectly identified " + currentPatient + "'s isseus.";
+            finalResults.text = "You have incorrectly identified " + currentPatient + "'s issues.";
         }
     }
 
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            finalResults.text = "You have incorrectly identified " + currentPatient + "'s isseus.";
+            finalResults.text = "You have incorrectly identified " + currentPatient + "'s issues.";
         }
     }
 
