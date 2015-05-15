@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CupManager : MonoBehaviour {
 
 	public GameObject PeeStick;
 	public Bars BarsCode;
+    public Sprite Used;
+
 	private Vector3 startPos;
 	private float endPos = 0;
 	bool moving = false;
@@ -40,14 +43,12 @@ public class CupManager : MonoBehaviour {
 				BarsCode.SetBars();
 			}
 			else{
-				goal = startPos;
+                goal = startPos;
+                PeeStick.GetComponent<Image>().sprite = Used;
 			}
 		}
 		
 		PeeStick.transform.position = Vector3.Lerp(PeeStick.transform.position, goal, .15f);	
 	}
-	
-	
-
 	
 }

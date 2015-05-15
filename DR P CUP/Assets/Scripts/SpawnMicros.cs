@@ -8,7 +8,8 @@ public class SpawnMicros : MonoBehaviour {
 
     public List<GameObject> MicroPrefabs;
 
-    private float x = 7.17f;
+    private float xMin = -7.17f;
+    private float xMax = 1.54f;
     private float yMax = 4.67f;
     private float yMin = -3.14f;
 
@@ -29,7 +30,7 @@ public class SpawnMicros : MonoBehaviour {
         // Spawn RBC
         for (int i = 0; i < dis.RedBloodCells; i++)
         {
-            xPos = Random.Range(-x, x);
+            xPos = Random.Range(xMin, xMax);
             yPos = Random.Range(yMin, yMax);
             GameObject obj = (GameObject)Instantiate(MicroPrefabs[(int)Micros.RBC]);
             obj.GetComponent<MicroBehavior>().Type = Micros.RBC;
@@ -39,7 +40,7 @@ public class SpawnMicros : MonoBehaviour {
         // Spawn WBC
         for (int i = 0; i < dis.WhiteBloodCells; i++)
         {
-            xPos = Random.Range(-x, x);
+            xPos = Random.Range(xMin, xMax);
             yPos = Random.Range(yMin, yMax);
             GameObject obj = (GameObject)Instantiate(MicroPrefabs[(int)Micros.WBC]);
             obj.GetComponent<MicroBehavior>().Type = Micros.WBC;
@@ -49,7 +50,7 @@ public class SpawnMicros : MonoBehaviour {
         // Spawn Crystal
         for (int i = 0; i < dis.Crystals; i++)
         {
-            xPos = Random.Range(-x, x);
+            xPos = Random.Range(xMin, xMax);
             yPos = Random.Range(yMin, yMax);
             GameObject obj = (GameObject)Instantiate(MicroPrefabs[(int)Micros.Crystals]);
             obj.GetComponent<MicroBehavior>().Type = Micros.Crystals;
@@ -59,7 +60,7 @@ public class SpawnMicros : MonoBehaviour {
         // Spawn Bacteria
         for (int i = 0; i < dis.Bacteria; i++)
         {
-            xPos = Random.Range(-x, x);
+            xPos = Random.Range(xMin, xMax);
             yPos = Random.Range(yMin, yMax);
             GameObject obj = (GameObject)Instantiate(MicroPrefabs[(int)Micros.Bacteria]);
             obj.GetComponent<MicroBehavior>().Type = Micros.Bacteria;
@@ -69,7 +70,7 @@ public class SpawnMicros : MonoBehaviour {
         // Spawn Yeast
         for (int i = 0; i < dis.Yeast; i++)
         {
-            xPos = Random.Range(-x, x);
+            xPos = Random.Range(xMin, xMax);
             yPos = Random.Range(yMin, yMax);
             GameObject obj = (GameObject)Instantiate(MicroPrefabs[(int)Micros.Yeast]);
             obj.GetComponent<MicroBehavior>().Type = Micros.Yeast;

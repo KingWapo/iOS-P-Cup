@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     public static string[] LastNames = { "Johnson", "Smith", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson" };
 
     public List<Sprite> UrineSprites;
+    public List<Material> UrineDrops;
 
     public GameObject Setup;
 
@@ -36,6 +37,9 @@ public class GameManager : MonoBehaviour {
 
     public Text ExamText;
 
+    public GameObject PeeStick;
+    public Sprite Normal;
+
     private ExamMode currentExam;
     private Disease currentDisease;
 
@@ -46,6 +50,9 @@ public class GameManager : MonoBehaviour {
 
     private string currentPatient;
     private string currentSymptoms;
+
+    private int correctPatients = 0;
+    private int totalPatients = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -100,11 +107,11 @@ public class GameManager : MonoBehaviour {
     {
         if (currentDisease.UsedFood == button.name)
         {
-            PatientAnswer.text = "Patient: Yes";
+            PatientAnswer.text = "Patient: Yes, I love " + button.name;
         }
         else
         {
-            PatientAnswer.text = "Patient: No";
+            PatientAnswer.text = "Patient: No, I hate " + button.name;
         }
     }
 
@@ -123,15 +130,19 @@ public class GameManager : MonoBehaviour {
         FinalResults.SetActive(true);
 
         Text finalResults = FinalResults.transform.GetChild(0).gameObject.GetComponent<Text>();
+        Text totalResults = FinalResults.transform.GetChild(1).gameObject.GetComponent<Text>();
 
         if (currentDisease.UsedFood == button.name)
         {
             finalResults.text = "You have correctly identified " + currentPatient + "'s issues.";
+            correctPatients++;
         }
         else
         {
             finalResults.text = "You have incorrectly identified " + currentPatient + "'s issues.";
         }
+        totalPatients++;
+        totalResults.text = "You have correctly identified " + correctPatients + " of " + totalPatients + " patients.";
     }
 
     public void SelectDrugAnswer(GameObject button)
@@ -149,15 +160,19 @@ public class GameManager : MonoBehaviour {
         FinalResults.SetActive(true);
 
         Text finalResults = FinalResults.transform.GetChild(0).gameObject.GetComponent<Text>();
+        Text totalResults = FinalResults.transform.GetChild(1).gameObject.GetComponent<Text>();
 
         if (currentDisease.UsedMed == button.name)
         {
             finalResults.text = "You have correctly identified " + currentPatient + "'s issues.";
+            correctPatients++;
         }
         else
         {
             finalResults.text = "You have incorrectly identified " + currentPatient + "'s issues.";
         }
+        totalPatients++;
+        totalResults.text = "You have correctly identified " + correctPatients + " of " + totalPatients + " patients.";
     }
 
     public void SelectAnswer(GameObject answer)
@@ -175,15 +190,19 @@ public class GameManager : MonoBehaviour {
         FinalResults.SetActive(true);
 
         Text finalResults = FinalResults.transform.GetChild(0).gameObject.GetComponent<Text>();
+        Text totalResults = FinalResults.transform.GetChild(1).gameObject.GetComponent<Text>();
 
         if (currentDisease.Name == answer.name)
         {
             finalResults.text = "You have correctly identified " + currentPatient + "'s issues.";
+            correctPatients++;
         }
         else
         {
             finalResults.text = "You have incorrectly identified " + currentPatient + "'s issues.";
         }
+        totalPatients++;
+        totalResults.text = "You have correctly identified " + correctPatients + " of " + totalPatients + " patients.";
     }
 
     public void SwitchExamMode()
@@ -230,10 +249,11 @@ public class GameManager : MonoBehaviour {
         FinalResults.SetActive(false);
         ExamText.text = "Below is the patient information, your job is to diagnose their issue to the best of your ability.";
         SetInfo();
-        for (int i = 0; i < Urines.Count; i++)
+        for (int i = 0; i < Urines.Count - 1; i++)
         {
             Urines[i].GetComponent<Image>().sprite = UrineSprites[(int)currentDisease.color];
         }
+        Urines[Urines.Count - 1].GetComponent<MeshRenderer>().material = UrineDrops[(int)currentDisease.color];
     }
 
     private void exitSetup()
@@ -261,7 +281,7 @@ public class GameManager : MonoBehaviour {
         while (foods.Count < 3)
         {
             string food = Foods[Random.Range(0, Foods.Length)];
-            if (food != currentDisease.UsedFood)
+            if (!foods.Contains(food))
             {
                 foods.Add(food);
             }
@@ -269,7 +289,7 @@ public class GameManager : MonoBehaviour {
         while (meds.Count < 3)
         {
             string med = Meds[Random.Range(0, Meds.Length)];
-            if (med != currentDisease.UsedMed)
+            if (!meds.Contains(med))
             {
                 meds.Add(med);
             }
@@ -325,8 +345,6 @@ public class GameManager : MonoBehaviour {
                            "Date: " + System.DateTime.Now.ToShortDateString() + "\n" +
                            "Medication: " + currentDisease.UsedMed + "\n" +
                            "Symptoms: ";
-
-        print("Disease: " + currentDisease.Name);
 
         int numSym = Random.Range(1, Mathf.Min(currentDisease.Symptoms.Length, 5));
         string[] chosenSym = new string[numSym];
@@ -405,6 +423,8 @@ public class GameManager : MonoBehaviour {
         MicrobialExam.transform.FindChild("UrineSlide").localScale = new Vector3(20, 1, 5);
         MicrobialExam.transform.FindChild("ZoomButton").gameObject.SetActive(true);
         AfterZoom.SetActive(false);
+        PatientAnswer.text = "Patient: ...";
+        PeeStick.GetComponent<Image>().sprite = Normal;
         currentExam = ExamMode.Setup;
     }
 

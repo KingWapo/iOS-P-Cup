@@ -366,7 +366,7 @@ public struct Disease{
 
         color = UrineColor.Brown;
 
-        RelatedFoods = new string[] { "Fava beans" };
+        RelatedFoods = new string[] { "Fava Beans" };
         RelatedMeds = new string[] { "Levodopa", "Metronidazole", "Nitrofurantoin", "Primaquine", "Chloroquine", "Methocarbamol", "Senna" };
         UsedFood = RelatedFoods[Random.Range(0, RelatedFoods.Length)];
     }
@@ -378,7 +378,7 @@ public struct Disease{
 
         color = UrineColor.Brown;
 
-        RelatedFoods = new string[] { "Fava beans" };
+        RelatedFoods = new string[] { "Fava Beans" };
         RelatedMeds = new string[] { "Levodopa", "Metronidazole", "Nitrofurantoin", "Primaquine", "Chloroquine", "Methocarbamol", "Senna" };
         UsedMed = RelatedMeds[Random.Range(0, RelatedMeds.Length)];
     }
@@ -453,6 +453,8 @@ public struct Disease{
 
         WhiteBloodCells = Random.Range(6, 10);
         RedBloodCells = Random.Range(3, 10);
+
+        HaemValue = RedBloodCells / 30.0f;
     }
 
     // Urinary Tract Infection
@@ -468,6 +470,8 @@ public struct Disease{
 
         RedBloodCells = Random.Range(3, 10);
         Bacteria = Random.Range(1, 5);
+
+        HaemValue = RedBloodCells / 30.0f;
     }
 
     public void Gout()
@@ -503,6 +507,8 @@ public struct Disease{
         {
             RedBloodCells = Random.Range(1, 4);
         }
+
+        HaemValue = RedBloodCells / 30.0f;
 
         Crystals = Random.Range(1, 10);
     }
@@ -552,7 +558,6 @@ public class Bars : MonoBehaviour {
 
     public void SetBars()
     {
-        print("Name: " + currentDisease.Name);
         setScrollbar(currentDisease);
     }
 }

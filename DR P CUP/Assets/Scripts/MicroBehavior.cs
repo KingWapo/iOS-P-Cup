@@ -15,8 +15,9 @@ public class MicroBehavior : MonoBehaviour {
 
     public SpawnMicros.Micros Type;
 
-    private float x = 7.17f;
-    private float yMax = 4.67f;
+    private float xMin = -7.17f;
+    private float xMax =  1.54f;
+    private float yMax =  4.67f;
     private float yMin = -3.14f;
 
     private Vector3 goal;
@@ -51,6 +52,6 @@ public class MicroBehavior : MonoBehaviour {
 
     private void UpdateGoal()
     {
-        goal = new Vector3(Random.Range(-x, x), Random.Range(yMin, yMax), 0);
+        goal = new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0);
     }
 }
