@@ -405,4 +405,9 @@ public class GameManager : MonoBehaviour {
         currentExam = ExamMode.Setup;
     }
 
+    public string GetSymptoms()
+    {
+        return currentSymptoms;
+    }
+
 }
