@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour {
                                     "Amitriptyline", "Indomethacin", "Triamterene", "Cimetidine", "Promothazine", "Levodopa", "Metronidazole", "Nitrofurantoin",
                                     "Primaquine", "Chloroquine", "Methocarbamol", "Senna"};
 
+    public static string[] FirstNames = { "Jen", "Adam", "Brandon", "Carl", "Stephanie", "Liz", "Grant", "Ben", "Heather", "Anna" };
+    public static string[] LastNames = { "Johnson", "Smith", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson" };
+
     public List<Sprite> UrineSprites;
 
     public GameObject Setup;
@@ -316,7 +319,7 @@ public class GameManager : MonoBehaviour {
 
     private void SetInfo()
     {
-        currentPatient = "Mr. Goobs";
+        currentPatient = FirstNames[Random.Range(0, FirstNames.Length)] + " " + LastNames[Random.Range(0, LastNames.Length)];
         Text patientText = Setup.transform.GetChild(0).gameObject.GetComponent<Text>();
         patientText.text = "Patient: " + currentPatient + "\n" +
                            "Date: " + System.DateTime.Now.ToShortDateString() + "\n" +
